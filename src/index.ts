@@ -9,7 +9,8 @@ const port = process.env.PORT || 3000;
 
 app.get('/api/hello', async (req: Request, res: Response) => {
   const visitorName = req.query.visitor_name as string
-  const clientIp = req.socket.remoteAddress || req.ip;
+  const clientIp = req.headers['x-forwarded-for'] || req.ip;
+  // const clientIp = req.socket.remoteAddress || req.ip;
   const apiKey = process.env.OPENWEATHER_API_KEY
 
   try {
