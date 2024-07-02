@@ -1,5 +1,8 @@
 import express, { Request, Response } from 'express';
 import axios from 'axios';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -7,7 +10,7 @@ const port = process.env.PORT || 3000;
 app.get('/api/hello', async (req: Request, res: Response) => {
   const visitorName = req.query.visitor_name as string
   const clientIp = req.socket.remoteAddress || req.ip;
-  const apiKey = 'f7604e9038003f77b30925b6d3a7b62e'
+  const apiKey = process.env.OPENWEATHER_API_KEY
 
   try {
     const locationResponse = await axios.get('http://ip-api.com/json/');
