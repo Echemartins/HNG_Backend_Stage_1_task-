@@ -43,10 +43,15 @@ const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
 app.get('/api/hello', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const visitorName = req.query.visitor_name;
-    const clientIp = req.socket.remoteAddress || req.ip;
+    const clientIp = req.headers['x-forwarded-for'] || req.ip;
+    // const clientIp = req.socket.remoteAddress || req.ip;
     const apiKey = process.env.OPENWEATHER_API_KEY;
+    console.log({ header: req.headers });
     try {
         const locationResponse = yield axios_1.default.get('http://ip-api.com/json/');
+        // const locationResponse = await axios.get(`https://ipapi.co/${clientIp}/json/`);
+        console.log(locationResponse);
+        console.log(locationResponse.data.city);
         const city = locationResponse.data.city;
         const weatherResponse = yield axios_1.default.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
         const temp = weatherResponse.data.main.temp;
