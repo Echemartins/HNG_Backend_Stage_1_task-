@@ -17,8 +17,8 @@ app.get('/api/hello', async (req: Request, res: Response) => {
   console.log({header:req.headers})
 
   try {
-    // const locationResponse = await axios.get('http://ip-api.com/json/');
-    const locationResponse = await axios.get(`https://ipapi.co/${clientIp}/json/`);
+    const locationResponse = await axios.get('http://ip-api.com/json/');
+    // const locationResponse = await axios.get(`https://ipapi.co/${clientIp}/json/`);
     console.log(locationResponse)
     console.log(locationResponse.data.city)
     const city = locationResponse.data.city;
