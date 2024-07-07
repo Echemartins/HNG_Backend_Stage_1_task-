@@ -5,17 +5,20 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
+
 const port = process.env.PORT || 3000;
 
 app.get('/api/hello', async (req: Request, res: Response) => {
   const visitorName = req.query.visitor_name as string
   const clientIp = req.headers['x-forwarded-for'] || req.ip;
+
   // const clientIp = req.socket.remoteAddress || req.ip;
   const apiKey = process.env.OPENWEATHER_API_KEY
-console.log({header:req.headers})
+  console.log({header:req.headers})
+
   try {
-    const locationResponse = await axios.get('http://ip-api.com/json/');
-    // const locationResponse = await axios.get(`https://ipapi.co/${clientIp}/json/`);
+    // const locationResponse = await axios.get('http://ip-api.com/json/');
+    const locationResponse = await axios.get(`https://ipapi.co/${clientIp}/json/`);
     console.log(locationResponse)
     console.log(locationResponse.data.city)
     const city = locationResponse.data.city;
