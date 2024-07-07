@@ -48,8 +48,8 @@ app.get('/api/hello', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const apiKey = process.env.OPENWEATHER_API_KEY;
     console.log({ header: req.headers });
     try {
-        const locationResponse = yield axios_1.default.get('http://ip-api.com/json/');
-        // const locationResponse = await axios.get(`https://ipapi.co/${clientIp}/json/`);
+        // const locationResponse = await axios.get('http://ip-api.com/json/');
+        const locationResponse = yield axios_1.default.get(`https://ipapi.co/${clientIp}/json/`);
         console.log(locationResponse);
         console.log(locationResponse.data.city);
         const city = locationResponse.data.city;
